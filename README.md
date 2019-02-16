@@ -55,7 +55,8 @@ achieve the same with MethodHandles/VarHandles.
 
 ### <a name="Mission"></a>Mission
 > ***Your mission**, should you choose to accept it, will be to fix the JUnit tests to achieve the 
-same results with the Handles API as the solved one(s) do with traditional reflection.*
+same results with the Handles API as the solved one(s) do with traditional reflection. This 
+message will self-destruct in * **NaN** * minutes*
 
 ### <a name="Requirements"></a>Requirements
 How to prepare for coding along
@@ -206,7 +207,7 @@ Kata Test | Solution
 
 ## <a name="TakeAway"></a>Take Away
 
-The key take-away for an attendee of this presentation and kata is a solid understanding of the 
+The key take-away from this kata is a solid understanding of the 
 simpler and more common usages of Core Reflection API and Unsafe API alongside the newer Handles 
 API both in similarity and in certain cases, how they differ.
 
