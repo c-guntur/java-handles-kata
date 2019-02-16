@@ -7,7 +7,6 @@ target/
 
 ### Java build
 *.class
-*.jar
 *.war
 *.nar
 *.ear

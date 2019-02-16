@@ -100,7 +100,7 @@ public class SCompareAndSetTest {
             final long offset;
 
             offset = unsafe.objectFieldOffset(
-                    CompareAndSetTest.class.getDeclaredField("privateVolatile"));
+                    SCompareAndSetTest.class.getDeclaredField("privateVolatile"));
 
             boolean exchanged = unsafe.compareAndSwapObject(this,
                     offset, currentValue, newValue);
