@@ -37,7 +37,7 @@ intent is to learn and experiment.
 
 The project contains several JUnit tests that fail with a message `"Test Failure - Fix all TODOs. "`. 
 
-Here are simple steps:
+<span style=“color:green;”>**Here are simple steps to use this kata**</span>:
 
 1. Run the test class(es).
 1. One or more tests will fail with the test failure message, phrased above.
