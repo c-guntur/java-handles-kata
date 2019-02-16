@@ -1,5 +1,8 @@
 # Method Reflection and Unsafe alternates Kata
 
+<img align="center" src="./images/davinci.png" alt="DaVinci Machine Project" title="DaVinci Machine Project" hspace="20" width="480"/>
+
+
 ## Table of Contents
 * [What is a Code Kata](#WhatIsACodeKata)
   * [How does one go about with this kata?](#HowToSolveKata)
@@ -66,12 +69,7 @@ This kata is developed as a Java maven project. Ensure that you have:
     Link: http://jdk.java.net/11/
 
 1. Your favorite Java IDE. _IntelliJ IDEA Ultimate was used to develop this kata_.
-
-1. Checkout the code from Github (link will be provided during the session).
  
-
-<img src="./images/davinci.png" alt="DaVinci Machine Project" title="DaVinci Machine Project" hspace="20" width="480"/>
-
 ## <a name="ProjectStructure"></a>Project Structure
 
 The structure of the project:
