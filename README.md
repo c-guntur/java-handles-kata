@@ -56,7 +56,7 @@ achieve the same with MethodHandles/VarHandles.
 ### <a name="Mission"></a>Mission
 > ***Your mission**, should you choose to accept it, will be to fix the JUnit tests to achieve the 
 same results with the Handles API as the solved one(s) do with traditional reflection. This 
-message will self-destruct in * **NaN** * minutes*
+message will self-destruct in* **NaN** *minutes*
 
 ### <a name="Requirements"></a>Requirements
 How to prepare for coding along
