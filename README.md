@@ -54,7 +54,7 @@ achieve the same with MethodHandles/VarHandles.
 > ***Your mission**, should you choose to accept it, will be to fix the JUnit tests to achieve the 
 same results with the Handles API as the solved one(s) do with traditional reflection.*
 
-### <a name="Requirements"</a>Requirements
+### <a name="Requirements"></a>Requirements
 How to prepare for coding along
 
 This kata is developed as a Java maven project. Ensure that you have:
