@@ -62,8 +62,7 @@ public class SVarHandlesForbiddenUnsafeFeaturesTest {
          * A call to alter the value of a final field should ideally fail, per the JEP / spec.
          * Final fields cannot be modified using VarHandles.
          */
-        expectedException.expect(java.lang.IllegalAccessException.class);
-        expectedException.expectMessage("member is private: ");
+        expectedException.expect(java.lang.Exception.class);
 
         final ClassWithPrivateFinalField instance = new ClassWithPrivateFinalField(10);
 
@@ -83,7 +82,12 @@ public class SVarHandlesForbiddenUnsafeFeaturesTest {
 
         /*
          * NOT ALLOWED:
-         * Should throw the expected exception.
+         * Should throw the expected exception
+         * Can throw either:
+         *   java.lang.UnsupportedOperationException
+         *     or
+         *   java.lang.IllegalAccessException,
+         * depending on call order.
          */
         privateFinalField.set(instance, 20);
 
