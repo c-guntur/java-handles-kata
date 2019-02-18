@@ -70,7 +70,9 @@ public class SGetterTest {
              *  Replace the "null"s with valid values to get a VarHandle.
              *  Check API: java.lang.invoke.MethodHandles.lookup()
              *  Check API: java.lang.invoke.MethodHandles.Lookup.in(?)
+             *             HINT: param is Target class
              *  Check API: java.lang.invoke.MethodHandles.Lookup.findVarHandle(?, ?, ?)
+             *             HINT: params are Declaring class, Variable name, Variable type
              */
             VarHandle publicVariableVarHandle = MethodHandles
                     .lookup()
@@ -133,7 +135,9 @@ public class SGetterTest {
              * DONE:
              *  Replace the "null"s with valid values to get a VarHandle.
              *  Check API: java.lang.invoke.MethodHandles.privateLookupIn(?, ?)
+             *             HINT: params are Target class and type of lookup
              *  Check API: java.lang.invoke.MethodHandles.Lookup.findVarHandle(?, ?, ?)
+             *             HINT: params are Declaring class, Variable name, Variable type
              */
             VarHandle privateVariableVarHandle = MethodHandles
                     .privateLookupIn(SGetterTest.class, MethodHandles.lookup())
@@ -217,7 +221,9 @@ public class SGetterTest {
              * DONE:
              *  Replace the "null"s with valid values to get a VarHandle.
              *  Check API: java.lang.invoke.MethodHandles.privateLookupIn(?, ?)
+             *             HINT: params are Target class, Lookup type
              *  Check API: java.lang.invoke.MethodHandles.Lookup.findVarHandle(?, ?, ?)
+             *             HINT: params are Declaring class, Variable name, Variable type
              */
             VarHandle privatePrimitiveArrayVariableVarHandle = MethodHandles
                     .privateLookupIn(SGetterTest.class, MethodHandles.lookup())
@@ -316,7 +322,9 @@ public class SGetterTest {
              * DONE:
              *  Replace the "null"s with valid values to get a VarHandle.
              *  Check API: java.lang.invoke.MethodHandles.privateLookupIn(?, ?)
+             *             HINT: params are Target class, Lookup type
              *  Check API: java.lang.invoke.MethodHandles.Lookup.findVarHandle(?, ?, ?)
+             *             HINT: params are Declaring class, Variable name, Variable type
              */
             VarHandle privatePrimitive2DArrayVariableVarHandle = MethodHandles
                     .privateLookupIn(SGetterTest.class, MethodHandles.lookup())
