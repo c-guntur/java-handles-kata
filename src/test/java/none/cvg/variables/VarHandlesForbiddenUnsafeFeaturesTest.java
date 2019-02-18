@@ -74,6 +74,7 @@ public class VarHandlesForbiddenUnsafeFeaturesTest {
          *             HINT: params are Target class, Lookup type
          *  Check API: java.lang.invoke.MethodHandles.Lookup.findVarHandle(?, ?, ?)
          *             HINT: params are Declaring class, Variable name, Variable type
+         *  Remember PRIVATE_FINAL_FIELD in of type int.class
          */
         VarHandle privateFinalField = MethodHandles
                 .privateLookupIn(null,
@@ -155,6 +156,7 @@ public class VarHandlesForbiddenUnsafeFeaturesTest {
          *             HINT: params are Target class, Lookup type
          *  Check API: java.lang.invoke.MethodHandles.Lookup.findVarHandle(?, ?, ?)
          *             HINT: params are Declaring class, Variable name, Variable type
+         *  Remember CONSTANT in of type Integer.class
          */
         VarHandle publicStaticFinalConstant = MethodHandles
                 .privateLookupIn(null,
