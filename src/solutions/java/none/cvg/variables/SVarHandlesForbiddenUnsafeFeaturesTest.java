@@ -70,9 +70,10 @@ public class SVarHandlesForbiddenUnsafeFeaturesTest {
          * DONE:
          *  Replace the "null"s with valid values to get a VarHandle to PRIVATE_FINAL_FIELD.
          *  Note that the final field is in an inner class.
-         *  Check API: java.lang.invoke.MethodHandles.privateLookupIn(who is invoking, how)
-         *  Check API: java.lang.invoke.MethodHandles.Lookup.findVarHandle(class that has the field
-         *                                                                , field name, field type)
+         *  Check API: java.lang.invoke.MethodHandles.privateLookupIn(?, ?)
+         *             HINT: params are Target class, Lookup type
+         *  Check API: java.lang.invoke.MethodHandles.Lookup.findVarHandle(?, ?, ?)
+         *             HINT: params are Declaring class, Variable name, Variable type
          */
         VarHandle privateFinalField = MethodHandles
                 .privateLookupIn(SVarHandlesForbiddenUnsafeFeaturesTest.class,
@@ -150,9 +151,10 @@ public class SVarHandlesForbiddenUnsafeFeaturesTest {
          * DONE:
          *  Replace the "null"s with valid values to get a VarHandle to PRIVATE_FINAL_FIELD.
          *  Note that the final field is in an inner class.
-         *  Check API: java.lang.invoke.MethodHandles.privateLookupIn(who is invoking, how)
-         *  Check API: java.lang.invoke.MethodHandles.Lookup.findVarHandle(class that has the field
-         *                                                                , field name, field type)
+         *  Check API: java.lang.invoke.MethodHandles.privateLookupIn(?, ?)
+         *             HINT: params are Target class, Lookup type
+         *  Check API: java.lang.invoke.MethodHandles.Lookup.findVarHandle(?, ?, ?)
+         *             HINT: params are Declaring class, Variable name, Variable type
          */
         VarHandle publicStaticFinalConstant = MethodHandles
                 .privateLookupIn(SVarHandlesForbiddenUnsafeFeaturesTest.class,

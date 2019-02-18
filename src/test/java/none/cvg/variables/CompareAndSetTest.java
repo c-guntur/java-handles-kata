@@ -142,7 +142,9 @@ public class CompareAndSetTest {
              * TODO:
              *  Replace the "null"s with valid values to get a VarHandle.
              *  Check API: java.lang.invoke.MethodHandles.privateLookupIn(?, ?)
+             *             HINT: params are Target class, Lookup type
              *  Check API: java.lang.invoke.MethodHandles.Lookup.findVarHandle(?, ?, ?)
+             *             HINT: params are Declaring class, Variable name, Variable type
              */
             varHandle = MethodHandles
                     .privateLookupIn(null, MethodHandles.lookup())
@@ -153,7 +155,7 @@ public class CompareAndSetTest {
              *  Replace the "false" to a compareAndSet call from 'currentValue' to 'newValue'.
              *  Check API: java.lang.invoke.VarHandle.compareAndSet(...)
              *  Three parameters are needed here:
-             *      1. The target class instance (this)
+             *      1. Instance of the class where the variable is being manipulated.
              *      2. The current value to compare
              *      3. The new value to set
              */
@@ -172,7 +174,7 @@ public class CompareAndSetTest {
              *  Replace the "false" to a compareAndSet call from 2 to 33.
              *  Check API: java.lang.invoke.VarHandle.compareAndSet(...)
              *  Three parameters are needed here:
-             *      1. The target class instance (this)
+             *      1. Instance of the class where the variable is being manipulated.
              *      2. The current value to compare
              *      3. The new value to set
              */
