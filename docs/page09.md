@@ -3,9 +3,9 @@
 <img align="center" src="MethodHandles.Lookup.png" alt="MethodHandles.Lookup is a serach facility to 'find...' methods." title="MethodHandles.Lookup" hspace="20" width="200"/>
 
 * Enclosed in a MethodHandles factory class
-* MethodHandles is itself a sledgehammer of various Java operations
-  * Iteration, While, Do While Loops
-  * Try Finally, Throw Exception, Consume Exception
+* _MethodHandles is itself a sledgehammer of various Java operations_
+  * _Iteration, While, Do While Loops_
+  * _Try Finally, Throw Exception, Consume Exception_
   * ...
 * Performs access checks and security manager interactions 
 * If allowed creates a method handle reference
