@@ -1,14 +1,10 @@
+Direct executable reference to an underlying method
+Not distinguished by name of method or class
+Special invoker methods :
+invoke()
+invokeExact()
+Immutable and stateless
 
-Represents return type and input parameters of a method :
-First parameter of a method type is return type
-Other parameters are input parameter types
-Immutable
-Primitives, arrays and void (return) values are types :
-int.class
-double.class
-void.class
-int[].class
-...
 
 
 
