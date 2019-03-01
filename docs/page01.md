@@ -1,7 +1,7 @@
 
 # CHANDRA GUNTUR - #Saganist
 
-<img align="center" src="Chandra.png" alt="Picture of Chandra Guntur" title="Chandra" hspace="20"/>
+<img align="center" src="Chandra.png" alt="Picture of Chandra Guntur" title="Chandra" hspace="20" width="100"/>
 
 ## Active in Java Community
 * **JUG Leader**: Organizer, Presenter at NYJavaSIG and NYJavaSIG Hands-On Workshops
