@@ -1,6 +1,6 @@
 # Method Reflection and Unsafe alternates Kata
 
-<img align="center" src="src/main/images/davinci.png" alt="DaVinci Machine Project" title="DaVinci Machine Project" hspace="20" width="480"/>
+<img align="center" src="docs/davinci.png" alt="DaVinci Machine Project" title="DaVinci Machine Project" hspace="20" width="480"/>
 
 
 ## Table of Contents
