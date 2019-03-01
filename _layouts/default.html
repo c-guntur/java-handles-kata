@@ -1,12 +1,15 @@
 <!doctype html>
-<html lang="{{ site.lang | default: "en-US" }}">
+<html lang="{{ site.lang | default: " en-US" }}">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
   {% seo %}
-  <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
-  <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+  <link rel="stylesheet"
+        href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+          integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+          crossorigin="anonymous"></script>
   <script src="{{ '/assets/js/respond.js' | relative_url }}"></script>
   <!--[if lt IE 9]>
   <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -23,15 +26,18 @@
   
   <section>
     <div id="title">
-      <h1>{{ site.title | default: site.github.repository_name }}</h1>
-      <p>{{ site.description | default: site.github.project_tagline }}</p>
+      <!--<h1>{{ site.title | default: site.github.repository_name }}</h1>-->
+      <!--<p>{{ site.description | default: site.github.project_tagline }}</p>-->
       <hr>
-      <span class="credits left">Project maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></span>
-      <span class="credits right">Twitter: &mdash;  <a href="https://twitter.com/cguntur">@CGuntur</a></span>
     </div>
     
     {{ content }}
-  
+    
+    <div>
+      <span class="credits left">Project maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></span>
+      <span class="credits right">Twitter: &mdash;  <a
+          href="https://twitter.com/cguntur">@CGuntur</a></span>
+    </div>
   </section>
 
 </div>
