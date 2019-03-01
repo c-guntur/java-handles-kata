@@ -1,6 +1,6 @@
 # MethodType - "The Discriminator"
 
-<img align="center" src="MethodType.png" alt="MethodType acts as a discriminator in indentifying the exact method by its signature and arity." title="MethodType" hspace="20" width="800"/>
+<img align="center" src="MethodType.png" alt="MethodType acts as a discriminator in indentifying the exact method by its signature and arity." title="MethodType" hspace="20"/>
 
 
 * Represents return type and input parameters of a method :

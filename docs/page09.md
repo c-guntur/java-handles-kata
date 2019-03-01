@@ -1,6 +1,6 @@
 # MethodHandles.Lookup - "The Searcher"
 
-<img align="center" src="MethodHandles.Lookup.png" alt="MethodHandles.Lookup is a serach facility to 'find...' methods." title="MethodHandles.Lookup" hspace="20" width="800"/>
+<img align="center" src="MethodHandles.Lookup.png" alt="MethodHandles.Lookup is a serach facility to 'find...' methods." title="MethodHandles.Lookup" hspace="20"/>
 
 * Enclosed in a MethodHandles factory class
 * MethodHandles is itself a sledgehammer of various Java operations

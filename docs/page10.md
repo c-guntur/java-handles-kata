@@ -1,6 +1,6 @@
 #MethodHandle - "The Executor"
 
-<img align="center" src="MethodHandle.png" alt="MethodHandles are just Handles that can be acted on" title="MethodHandle" hspace="20" width="800"/>
+<img align="center" src="MethodHandle.png" alt="MethodHandles are just Handles that can be acted on" title="MethodHandle" hspace="20"/>
 
 
 * Direct executable reference to an underlying method
