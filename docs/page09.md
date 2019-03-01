@@ -4,12 +4,8 @@
 
 * Enclosed in a MethodHandles factory class
 * MethodHandles is itself a sledgehammer of various Java operations
-  * Iteration Loop
-  * While Loop
-  * Do While Loop
-  * Try Finally
-  * Throw Exception
-  * Consume Exception
+  * Iteration, While, Do While Loops
+  * Try Finally, Throw Exception, Consume Exception
   * ...
 * Performs access checks and security manager interactions 
 * If allowed creates a method handle reference
