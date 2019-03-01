@@ -1,16 +1,19 @@
-Low level memory information
-Object & field manipulation
-Classes and static field manipulation
-Array manipulations
-Low-level primitive for synchronization
-Direct memory access
-Avoiding initialization/constructor calls
-Faster serialization/deserialization
+# Unsafe Replacement: VarHandle (Java 9)
 
-[<< Prev](page11.md) 
+* JSR-292 led to lightweight references to attributes
+* The references are called VarHandles
+* Standard replacements for features in :
+  * **`java.util.concurrent.atomic.*`**
+  * **`sun.misc.Unsafe`**
+* The VarHandle API provides :
+  * **Field and array index element access**
+  * **Memory fences** for fine-grained control of memory ordering
+  * A strong **reachability-fence** operation for an object
+
+[<< Prev](page15.md) 
 &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
 &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
 &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
 &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
 &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
-[Next >>](page13.md) 
+[Next >>](page17.md) 
