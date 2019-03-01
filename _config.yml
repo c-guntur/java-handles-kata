@@ -1,3 +1,5 @@
+title: Java Handles
+description: A Code Kata
 plugins:
   - jekyll-relative-links
 relative_links:
