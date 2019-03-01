@@ -8,3 +8,9 @@
     * gave us lambdas and method references in Java
   * ability to change classes & methods at runtime, dynamically
     * session focuses on this second core feature
+    
+    
+|--------------------------|---------------------------|
+|:-------------------------|:--------------------------|
+|   [Prev](page04.md)      |       [Next](page06.md)   |
+|--------------------------|---------------------------|
