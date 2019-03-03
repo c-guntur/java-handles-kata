@@ -8,11 +8,7 @@
 
 * **Speaker**: Oracle Code One, Devnexus, QCon New York, Oracle Code New York and at several Java User Groups
 
-* **Advocacy**: 
-
-  * Active on *blogging* and *tweeting* on all things Java
-
-  * ***JCP Executive Committee*** secondary rep. for BNY Mellon
+* **Advocacy**: Active on *blogging* and *tweeting* on all things Java
 
 ## Work Portfolio
 
