@@ -101,7 +101,7 @@ public class SDefaultConstructorInvocationTest {
         MethodHandles.Lookup publicMethodHandlesLookup = MethodHandles.publicLookup();
 
         /*
-         *
+         * DONE
          *  Create a methodType instance that matches the default constructor
          *  Constructors should have a void return type
          *  Default constructors have no parameters
