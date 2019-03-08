@@ -40,7 +40,7 @@ public class GetterTest {
      * BEGIN: PUBLIC VARIABLE USING REFLECTION AND VARIABLE HANDLES
      */
     @Test
-    public void getPublicVariableFromConstructedClassTraditional() {
+    public void getPublicVariableFromConstructedClassViaReflection() {
 
         try {
 

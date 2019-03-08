@@ -57,6 +57,8 @@ public class VarHandlesForbiddenUnsafeFeaturesTest {
     @Test
     public void cannotModifyPrivateFinalUsingVarHandles() throws Throwable {
 
+        fail(REFLECTION_FAILURE.getValue() + "Replace nulls below");
+
         /*
          * NOTE:
          * A call to alter the value of a final field should ideally fail, per the JEP / spec.
@@ -138,6 +140,8 @@ public class VarHandlesForbiddenUnsafeFeaturesTest {
 
     @Test
     public void cannotModifyConstantUsingVarHandles() throws Throwable {
+
+        fail(REFLECTION_FAILURE.getValue() + "Replace nulls below");
 
         /*
          * NOTE:
