@@ -115,7 +115,7 @@ public class VarHandlesForbiddenUnsafeFeaturesTest {
             publicStaticFinalConstant.setAccessible(true);
 
 
-            // Access the soecial "modifiers" field of Field.class
+            // Access the special "modifiers" field of Field.class
             Field modifiersField = Field.class.getDeclaredField("modifiers");
             modifiersField.setAccessible(true);
             // VERY VERY BAD !!!
