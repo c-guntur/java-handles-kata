@@ -7,12 +7,19 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import none.cvg.DemoClass;
-import org.junit.Test;
+import none.cvg.HandlesKataDisplayNames;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import static none.cvg.ErrorMessages.REFLECTION_FAILURE;
 import static none.cvg.ErrorMessages.TEST_FAILURE;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /*
  * DONE:
@@ -22,9 +29,14 @@ import static org.junit.Assert.fail;
  *  Each unsolved test provides a few hints that will allow the kata-taker to manually solve
  *  the exercise to achieve the same goal with MethodHandles.
  */
+@DisplayNameGeneration(HandlesKataDisplayNames.class)
+@DisplayName("Invoke DemoClass(String)")
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SParameteredConstructorInvocationTest {
 
     @Test
+    @Tag("PASSING")
+    @Order(1)
     public void reflectionParamConstructor() {
 
         String expectedOutput = "[Constructor Demo]" +
@@ -41,10 +53,9 @@ public class SParameteredConstructorInvocationTest {
             DemoClass demoClass =
                     demoClassConstructor.newInstance("Constructor Demo");
 
-            assertEquals(
-                    "Reflection invocation failed",
-                    expectedOutput,
-                    demoClass.printStuff("Constructor via reflection"));
+            assertEquals(expectedOutput,
+                    demoClass.printStuff("Constructor via reflection"),
+                    "Reflection invocation failed");
 
         } catch (ClassNotFoundException | NoSuchMethodException |
                 InstantiationException | IllegalAccessException | InvocationTargetException e) {
@@ -55,6 +66,8 @@ public class SParameteredConstructorInvocationTest {
 
 
     @Test
+    @Tag("PASSING")
+    @Order(2)
     public void methodHandleParamConstructor() {
 
         String expectedOutput = "[Constructor Demo] - Constructor via Method Handles";
@@ -105,10 +118,10 @@ public class SParameteredConstructorInvocationTest {
                     (DemoClass) demoClassConstructor.invokeExact(
                             "Constructor Demo");
 
-            assertEquals("Method handles invocation failed",
-                    expectedOutput,
+            assertEquals(expectedOutput,
                     demoClass.printStuff(
-                            "Constructor via Method Handles"));
+                            "Constructor via Method Handles"),
+                    "Method handles invocation failed");
 
         } catch (NoSuchMethodException | IllegalAccessException e) {
 

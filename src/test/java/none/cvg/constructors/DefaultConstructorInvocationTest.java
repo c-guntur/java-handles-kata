@@ -7,14 +7,21 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 import none.cvg.DemoClass;
-import org.junit.Test;
+import none.cvg.HandlesKataDisplayNames;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import sun.misc.Unsafe;
 
 import static none.cvg.ErrorMessages.REFLECTION_FAILURE;
 import static none.cvg.ErrorMessages.TEST_FAILURE;
 import static none.cvg.ErrorMessages.UNSAFE_FAILURE;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /*
  * TODO:
@@ -24,9 +31,14 @@ import static org.junit.Assert.fail;
  *  Each unsolved test provides a few hints that will allow the kata-taker to manually solve
  *  the exercise to achieve the same goal with MethodHandles.
  */
+@DisplayNameGeneration(HandlesKataDisplayNames.class)
+@DisplayName("Invoke DemoClass()")
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class DefaultConstructorInvocationTest {
 
     @Test
+    @Tag("PASSING")
+    @Order(1)
     public void reflectionNoParamConstructor() {
 
         String expectedOutput = "[No param DemoClass constructor]" +
@@ -40,9 +52,9 @@ public class DefaultConstructorInvocationTest {
             DemoClass demoClass =
                     demoClassClass.getDeclaredConstructor().newInstance();
 
-            assertEquals("Reflection invocation failed",
-                    expectedOutput,
-                    demoClass.printStuff("Default constructor via Reflection"));
+            assertEquals(expectedOutput,
+                    demoClass.printStuff("Default constructor via Reflection"),
+                    "Reflection invocation failed");
 
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                 NoSuchMethodException | ClassNotFoundException e) {
@@ -52,6 +64,8 @@ public class DefaultConstructorInvocationTest {
     }
 
     @Test
+    @Tag("PASSING")
+    @Order(2)
     public void unsafeNoParamConstructor() {
 
         String expectedOutput = "[I am Unsafe.] - Default constructor via Unsafe";
@@ -75,9 +89,9 @@ public class DefaultConstructorInvocationTest {
             // Get the field for the DemoClass instance created above & set its value.
             unsafe.getAndSetObject(demoClass, offset, "I am Unsafe.");
 
-            assertEquals("Unsafe invocation failed",
-                    expectedOutput,
-                    demoClass.printStuff("Default constructor via Unsafe"));
+            assertEquals(expectedOutput,
+                    demoClass.printStuff("Default constructor via Unsafe"),
+                    "Unsafe invocation failed");
 
         } catch (InstantiationException | IllegalAccessException | NoSuchFieldException e) {
 
@@ -86,6 +100,8 @@ public class DefaultConstructorInvocationTest {
     }
 
     @Test
+    @Tag("TODO")
+    @Order(3)
     public void methodHandleNoParamConstructor() {
 
         String expectedOutput = "[No param DemoClass constructor]" +
@@ -134,10 +150,10 @@ public class DefaultConstructorInvocationTest {
             DemoClass demoClass =
                     null; //  Requires casting.
 
-            assertEquals("Should match: " + expectedOutput,
-                    expectedOutput,
+            assertEquals(expectedOutput,
                     demoClass.printStuff(
-                            "Default constructor via Method Handles"));
+                            "Default constructor via Method Handles"),
+                    "Should match: " + expectedOutput);
 
         } catch (NoSuchMethodException | IllegalAccessException e) {
 

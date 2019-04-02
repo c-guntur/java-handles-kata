@@ -4,14 +4,21 @@ import java.lang.invoke.MethodHandles;
 import java.lang.invoke.VarHandle;
 import java.lang.reflect.Field;
 
-import org.junit.Test;
+import none.cvg.HandlesKataDisplayNames;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import static none.cvg.ErrorMessages.REFLECTION_FAILURE;
 import static none.cvg.ErrorMessages.TEST_FAILURE;
 import static none.cvg.ErrorMessages.UNSAFE_FAILURE;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /*
  * DONE:
@@ -21,6 +28,9 @@ import static org.junit.Assert.fail;
  *  Each unsolved test provides a few hints that will allow the kata-taker to manually solve
  *  the exercise to achieve the same goal with MethodHandles/VarHandles.
  */
+@DisplayName("Get field value")
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@DisplayNameGeneration(HandlesKataDisplayNames.class)
 public class SGetterTest {
 
     public Integer publicVariable = 1;
@@ -40,6 +50,8 @@ public class SGetterTest {
      * BEGIN: PUBLIC VARIABLE USING REFLECTION AND VARIABLE HANDLES
      */
     @Test
+    @Tag("PASSING")
+    @Order(1)
     public void getPublicVariableFromConstructedClassViaReflection() {
 
         try {
@@ -48,9 +60,9 @@ public class SGetterTest {
 
             Field publicVariableField = clazz.getDeclaredField("publicVariable");
 
-            assertEquals("The value of the field should be 1",
-                    1,
-                    publicVariableField.get(this));
+            assertEquals(1,
+                    publicVariableField.get(this),
+                    "The value of the field should be 1");
 
         } catch (NoSuchFieldException | SecurityException | IllegalArgumentException |
                 IllegalAccessException e) {
@@ -61,6 +73,8 @@ public class SGetterTest {
     }
 
     @Test
+    @Tag("PASSING")
+    @Order(2)
     public void getPublicVariableFromConstructedClassViaVarHandles() {
 
         try {
@@ -79,16 +93,17 @@ public class SGetterTest {
                     .in(SGetterTest.class)
                     .findVarHandle(SGetterTest.class, "publicVariable", Integer.class);
 
-            assertEquals("There should only be one coordinateType",
-                    publicVariableVarHandle.coordinateTypes().size(), 1);
-
-            assertEquals("The only coordinate type is SGetterTest",
-                    SGetterTest.class,
-                    publicVariableVarHandle.coordinateTypes().get(0));
-
-            assertEquals("The value of the field should be 1",
+            assertEquals(publicVariableVarHandle.coordinateTypes().size(),
                     1,
-                    publicVariableVarHandle.get(this));
+                    "There should only be one coordinateType");
+
+            assertEquals(SGetterTest.class,
+                    publicVariableVarHandle.coordinateTypes().get(0),
+                    "The only coordinate type is GetterTest");
+
+            assertEquals(1,
+                    publicVariableVarHandle.get(this),
+                    "The value of the field should be 1");
 
         } catch (NoSuchFieldException | IllegalAccessException | NullPointerException e) {
 
@@ -104,6 +119,8 @@ public class SGetterTest {
      * BEGIN: PRIVATE VARIABLE USING REFLECTION AND VARIABLE HANDLES
      */
     @Test
+    @Tag("PASSING")
+    @Order(3)
     public void getPrivateVariableFromConstructedClassViaReflection() {
 
         try {
@@ -114,9 +131,9 @@ public class SGetterTest {
 
             privateVariableField.setAccessible(true);
 
-            assertEquals("The value of the field should be 2",
-                    2,
-                    privateVariableField.get(this));
+            assertEquals(2,
+                    privateVariableField.get(this),
+                    "The value of the field should be 2");
 
         } catch (NoSuchFieldException | SecurityException | IllegalArgumentException |
                 IllegalAccessException e) {
@@ -127,6 +144,8 @@ public class SGetterTest {
     }
 
     @Test
+    @Tag("PASSING")
+    @Order(4)
     public void getPrivateVariableFromConstructedClassViaVarHandles() {
 
         try {
@@ -143,20 +162,20 @@ public class SGetterTest {
                     .privateLookupIn(SGetterTest.class, MethodHandles.lookup())
                     .findVarHandle(SGetterTest.class, "privateVariable", Integer.class);
 
-            assertEquals("There should only be one coordinateType",
-                    1,
-                    privateVariableVarHandle.coordinateTypes().size());
+            assertEquals(1,
+                    privateVariableVarHandle.coordinateTypes().size(),
+                    "There should only be one coordinateType");
 
-            assertEquals("The only coordinate type is AttributeGetterTest",
-                    SGetterTest.class,
-                    privateVariableVarHandle.coordinateTypes().get(0));
+            assertEquals(SGetterTest.class,
+                    privateVariableVarHandle.coordinateTypes().get(0),
+                    "The only coordinate type is AttributeGetterTest");
 
-            assertTrue("Access mode for a GET should be true",
-                    privateVariableVarHandle.isAccessModeSupported(VarHandle.AccessMode.GET));
+            assertTrue(privateVariableVarHandle.isAccessModeSupported(VarHandle.AccessMode.GET),
+                    "Access mode for a GET should be true");
 
-            assertEquals("The value of the field should be 2",
-                    2,
-                    privateVariableVarHandle.get(this));
+            assertEquals(2,
+                    privateVariableVarHandle.get(this),
+                    "The value of the field should be 2");
 
         } catch (NoSuchFieldException | IllegalAccessException | NullPointerException e) {
 
@@ -172,6 +191,8 @@ public class SGetterTest {
      * BEGIN: PRIVATE 1-DIMENSIONAL ARRAY VARIABLE USING REFLECTION AND VARIABLE HANDLES
      */
     @Test
+    @Tag("PASSING")
+    @Order(5)
     public void getPrimitiveArrayFromConstructedClassViaReflection() {
 
         int[] reflectedArray = null;
@@ -191,17 +212,17 @@ public class SGetterTest {
                 reflectedArray = int[].class.cast(privatePrimitiveArrayVariableField.get(this));
             }
 
-            assertEquals("The length of the array should be 3",
-                    3,
-                    reflectedArray.length);
+            assertEquals(3,
+                    reflectedArray.length,
+                    "The length of the array should be 3");
 
-            assertEquals("The first element of the array should be 1",
-                    1,
-                    reflectedArray[0]);
+            assertEquals(1,
+                    reflectedArray[0],
+                    "The first element of the array should be 1");
 
-            assertEquals("The third of the array should be 3",
-                    3,
-                    reflectedArray[2]);
+            assertEquals(3,
+                    reflectedArray[2],
+                    "The third of the array should be 3");
 
         } catch (NoSuchFieldException | SecurityException | IllegalArgumentException |
                 IllegalAccessException e) {
@@ -213,7 +234,9 @@ public class SGetterTest {
     }
 
     @Test
-    public void getPrivatePrimitiveArrayVariableFromConstructedClassViaVarHandles() {
+    @Tag("PASSING")
+    @Order(6)
+    public void getPrimitiveArrayFromConstructedClassViaVarHandles() {
 
         try {
 
@@ -229,35 +252,35 @@ public class SGetterTest {
                     .privateLookupIn(SGetterTest.class, MethodHandles.lookup())
                     .findVarHandle(SGetterTest.class, "privatePrimitiveArrayVariable", int[].class);
 
-            assertEquals("There should only be one coordinateType",
-                    1,
-                    privatePrimitiveArrayVariableVarHandle.coordinateTypes().size());
+            assertEquals(1,
+                    privatePrimitiveArrayVariableVarHandle.coordinateTypes().size(),
+                    "There should only be one coordinateType");
 
-            assertEquals("The only coordinate type is AttributeGetterTest",
-                    SGetterTest.class,
-                    privatePrimitiveArrayVariableVarHandle.coordinateTypes().get(0));
+            assertEquals(SGetterTest.class,
+                    privatePrimitiveArrayVariableVarHandle.coordinateTypes().get(0),
+                    "The only coordinate type is AttributeGetterTest");
 
             int[] varHandleTypeArray = int[].class.cast(
                     privatePrimitiveArrayVariableVarHandle.get(this));
 
             /*
-             * DONE:
+             * TODO:
              *  Replace the "null"s with valid values to get a VarHandle.
              *  Check API: java.lang.invoke.MethodHandles.arrayElementVarHandle(?)
              */
             VarHandle arrayElementHandle = MethodHandles.arrayElementVarHandle(int[].class);
 
-            assertEquals("The length of the array should be 3",
-                    3,
-                    varHandleTypeArray.length);
+            assertEquals(3,
+                    varHandleTypeArray.length,
+                    "The length of the array should be 3");
 
-            assertEquals("The first element of the array should be 1",
-                    1,
-                    arrayElementHandle.get(privatePrimitiveArrayVariable, 0));
+            assertEquals(1,
+                    arrayElementHandle.get(privatePrimitiveArrayVariable, 0),
+                    "The first element of the array should be 1");
 
-            assertEquals("The third of the array should be 3",
-                    3,
-                    arrayElementHandle.get(privatePrimitiveArrayVariable, 2));
+            assertEquals(3,
+                    arrayElementHandle.get(privatePrimitiveArrayVariable, 2),
+                    "The third of the array should be 3");
 
         } catch (NoSuchFieldException | IllegalAccessException | NullPointerException e) {
 
@@ -273,7 +296,9 @@ public class SGetterTest {
      * BEGIN: PRIVATE 2-DIMENSIONAL ARRAY VARIABLE USING REFLECTION AND VARIABLE HANDLES
      */
     @Test
-    public void get2DPrimitiveArrayFromConstructedClassViaReflection() {
+    @Tag("PASSING")
+    @Order(7)
+    public void get2DimensionalPrimitiveArrayFromConstructedClassViaReflection() {
 
         int[][] reflectedArray = null;
 
@@ -292,17 +317,17 @@ public class SGetterTest {
                 reflectedArray = int[][].class.cast(privatePrimitive2DArrayVariableField.get(this));
             }
 
-            assertEquals("The length of the array should be 3",
-                    3,
-                    reflectedArray.length);
+            assertEquals(3,
+                    reflectedArray.length,
+                    "The length of the array should be 3");
 
-            assertEquals("The first of first element of the array should be 1",
-                    1,
-                    reflectedArray[0][0]);
+            assertEquals(1,
+                    reflectedArray[0][0],
+                    "The first of first element of the array should be 1");
 
-            assertEquals("The third of third of the array should be 9",
-                    9,
-                    reflectedArray[2][2]);
+            assertEquals(9,
+                    reflectedArray[2][2],
+                    "The third of third of the array should be 9");
 
         } catch (NoSuchFieldException | SecurityException | IllegalArgumentException |
                 IllegalAccessException e) {
@@ -314,7 +339,9 @@ public class SGetterTest {
     }
 
     @Test
-    public void getPrivate2DPrimitiveArrayVariableFromConstructedClassViaVarHandles() {
+    @Tag("PASSING")
+    @Order(8)
+    public void get2DimensionalPrimitiveArrayFromConstructedClassViaVarHandles() {
 
         try {
 
@@ -330,35 +357,35 @@ public class SGetterTest {
                     .privateLookupIn(SGetterTest.class, MethodHandles.lookup())
                     .findVarHandle(SGetterTest.class, "privatePrimitive2DArrayVariable", int[][].class);
 
-            assertEquals("There should only be one coordinateType",
-                    1,
-                    privatePrimitive2DArrayVariableVarHandle.coordinateTypes().size());
+            assertEquals(1,
+                    privatePrimitive2DArrayVariableVarHandle.coordinateTypes().size(),
+                    "There should only be one coordinateType");
 
-            assertEquals("The only coordinate type is AttributeGetterTest",
-                    SGetterTest.class,
-                    privatePrimitive2DArrayVariableVarHandle.coordinateTypes().get(0));
+            assertEquals(SGetterTest.class,
+                    privatePrimitive2DArrayVariableVarHandle.coordinateTypes().get(0),
+                    "The only coordinate type is AttributeGetterTest");
 
             int[][] varHandleTypeArray = int[][].class.cast(
                     privatePrimitive2DArrayVariableVarHandle.get(this));
 
             /*
-             * DONE:
+             * TODO:
              *  Replace the "null"s with valid values to get a VarHandle.
              *  Check API: java.lang.invoke.MethodHandles.arrayElementVarHandle(?)
              */
             VarHandle arrayElementHandle = MethodHandles.arrayElementVarHandle(int[][].class);
 
-            assertEquals("The length of the array should be 3",
-                    3,
-                    varHandleTypeArray.length);
+            assertEquals(3,
+                    varHandleTypeArray.length,
+                    "The length of the array should be 3");
 
-            assertEquals("The first element of the array should be 1",
-                    1,
-                    ((int[]) arrayElementHandle.get(privatePrimitive2DArrayVariable, 0))[0]);
+            assertEquals(1,
+                    ((int[]) arrayElementHandle.get(privatePrimitive2DArrayVariable, 0))[0],
+                    "The first element of the array should be 1");
 
-            assertEquals("The last element of the array should be 9",
-                    9,
-                    ((int[]) arrayElementHandle.get(privatePrimitive2DArrayVariable, 2))[2]);
+            assertEquals(9,
+                    ((int[]) arrayElementHandle.get(privatePrimitive2DArrayVariable, 2))[2],
+                    "The last element of the array should be 9");
 
         } catch (NoSuchFieldException | IllegalAccessException | NullPointerException e) {
 

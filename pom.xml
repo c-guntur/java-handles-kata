@@ -19,26 +19,84 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
 
+        <apiguardian-api.version>1.0.0</apiguardian-api.version>
+        <opentest4j.version>1.1.1</opentest4j.version>
+
+        <junit-platform-surefire-provider.version>1.2.0</junit-platform-surefire-provider.version>
+
+        <junit5.version>5.4.1</junit5.version>
     </properties>
 
     <dependencies>
 
+        <!-- HAD TO MANUALLY DECLARE ALL BELOW SINCE THE PROJECT USES A SYSTEM SCOPE -->
+        <!-- Should you connect to the internet and use maven central or any similar repo -->
+        <!-- You only need org.junit.jupiter:junit-jupiter:5.4.1 as a dependency -->
+
+        <!-- UNCOMMENT JUST THIS ONE DEPENDENCY BELOW
+             IF CONNECTED TO THE INTERNET AND USING A MAVEN REPO -->
+
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit5.version}</version>
+        </dependency>
+
+
+        <!-- COMMENT OUT ALL OF THE DEPENDENCIES BELOW
+             IF CONNECTED TO THE INTERNET AND USING A MAVEN REPO
+        <dependency>
+            <groupId>org.apiguardian</groupId>
+            <artifactId>apiguardian-api</artifactId>
+            <version>${apiguardian-api.version}</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/src/test/lib/junit-4.12.jar</systemPath>
+            <systemPath>${project.basedir}/src/test/lib/apiguardian-api-1.0.0.jar</systemPath>
         </dependency>
 
         <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest</artifactId>
-            <version>2.1</version>
+            <groupId>org.opentest4j</groupId>
+            <artifactId>opentest4j</artifactId>
+            <version>${opentest4j.version}</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/src/test/lib/hamcrest-2.1.jar</systemPath>
+            <systemPath>${project.basedir}/src/test/lib/opentest4j-1.1.1.jar</systemPath>
         </dependency>
 
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-surefire-provider</artifactId>
+            <version>${junit-platform-surefire-provider.version}</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/test/lib/junit-platform-surefire-provider-1.2.0.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit5.version}</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/test/lib/junit-jupiter-api-5.4.1.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit5.version}</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/test/lib/junit-jupiter-5.4.1.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit5.version}</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/test/lib/junit-jupiter-engine-5.4.1.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${junit5.version}</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/test/lib/junit-jupiter-params-5.4.1.jar</systemPath>
+        </dependency>
+-->
     </dependencies>
 
     <build>
@@ -49,6 +107,30 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.7.0</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.21.0</version>
+                <configuration>
+                    <properties>
+                        <includeTags>PASSING</includeTags>
+                        <excludeTags>TODO</excludeTags>
+                    </properties>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.junit.platform</groupId>
+                        <artifactId>junit-platform-surefire-provider</artifactId>
+                        <version>${junit-platform-surefire-provider.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.junit.jupiter</groupId>
+                        <artifactId>junit-jupiter-engine</artifactId>
+                        <version>${junit5.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 
             <plugin>

@@ -7,12 +7,19 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import none.cvg.DemoClass;
-import org.junit.Test;
+import none.cvg.HandlesKataDisplayNames;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import static none.cvg.ErrorMessages.REFLECTION_FAILURE;
 import static none.cvg.ErrorMessages.TEST_FAILURE;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /*
  * TODO:
@@ -21,9 +28,14 @@ import static org.junit.Assert.fail;
  *  Each unsolved test provides a few hints that will allow the kata-taker to manually solve
  *  the exercise to achieve the same goal with MethodHandles.
  */
+@DisplayNameGeneration(HandlesKataDisplayNames.class)
+@DisplayName("Invoke DemoClass.publicStaticMethod(String)")
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class PublicStaticMethodInvocationTest {
 
     @Test
+    @Tag("PASSING")
+    @Order(1)
     public void reflectionPublicStaticMethod() {
 
         String expectedOutput = "DemoClass.class - Public static method via reflection";
@@ -35,9 +47,9 @@ public class PublicStaticMethodInvocationTest {
                     DemoClass.class.getMethod("publicStaticMethod",
                             String.class);
 
-            assertEquals("Reflection invocation failed",
-                    expectedOutput,
-                    publicStaticMethod.invoke(DemoClass.class, "via reflection"));
+            assertEquals(expectedOutput,
+                    publicStaticMethod.invoke(DemoClass.class, "via reflection"),
+                    "Reflection invocation failed");
 
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
 
@@ -46,6 +58,8 @@ public class PublicStaticMethodInvocationTest {
     }
 
     @Test
+    @Tag("TODO")
+    @Order(2)
     public void methodHandlePublicStaticMethod() {
 
         String expectedOutput = "DemoClass.class - Public static method via Method Handles";
@@ -85,10 +99,10 @@ public class PublicStaticMethodInvocationTest {
              * ATTENTION: The invoke() method does not take an instance of demoClass as its
              *             first parameter for static method invocation.
              */
-            assertEquals("Method handles invocation failed",
-                    expectedOutput,
+            assertEquals(expectedOutput,
                     publicStaticMethodHandle.invoke(
-                            "via Method Handles"));
+                            "via Method Handles"),
+                    "Method handles invocation failed");
 
         } catch (NoSuchMethodException | IllegalAccessException e) {
 

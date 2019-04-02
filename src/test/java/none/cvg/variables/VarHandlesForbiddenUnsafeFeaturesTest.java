@@ -5,13 +5,17 @@ import java.lang.invoke.VarHandle;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import static none.cvg.ErrorMessages.REFLECTION_FAILURE;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /*
  * TODO:
@@ -21,12 +25,14 @@ import static org.junit.Assert.fail;
  *  The "ability" to modify finals and static finals using Unsafe is highlighted here. VarHandles
  *  do not support this behavior for very obvious reasons.
  */
+@DisplayName("Modify FINAL fields")
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class VarHandlesForbiddenUnsafeFeaturesTest {
 
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-
     @Test
+    @Tag("PASSING")
+    @Order(1)
+    @DisplayName("modify private final field using reflection")
     public void modifyPrivateFinalUsingReflection() {
 
         final ClassWithPrivateFinalField instance = new ClassWithPrivateFinalField(10);
@@ -43,9 +49,9 @@ public class VarHandlesForbiddenUnsafeFeaturesTest {
             // Will work (tested until Java 11), since the final modifier is ignored.
             privateFinalField.setInt(instance, 20);
 
-            assertEquals("",
-                    20,
-                    instance.getPrivateFinalField());
+            assertEquals(20,
+                    instance.getPrivateFinalField(),
+                    "The private final field should have a value of 20");
 
         } catch (NoSuchFieldException | IllegalAccessException e) {
 
@@ -55,6 +61,8 @@ public class VarHandlesForbiddenUnsafeFeaturesTest {
     }
 
     @Test
+    @Tag("TODO")
+    @Order(2)
     public void cannotModifyPrivateFinalUsingVarHandles() throws Throwable {
 
         fail(REFLECTION_FAILURE.getValue() + "Replace nulls below");
@@ -64,49 +72,52 @@ public class VarHandlesForbiddenUnsafeFeaturesTest {
          * A call to alter the value of a final field should ideally fail, per the JEP / spec.
          * Final fields cannot be modified using VarHandles.
          */
-        expectedException.expect(java.lang.Exception.class);
+        assertThrows(Exception.class, () -> {
 
-        final ClassWithPrivateFinalField instance = new ClassWithPrivateFinalField(10);
+            final ClassWithPrivateFinalField instance = new ClassWithPrivateFinalField(10);
 
-        /*
-         * TODO:
-         *  Replace the "null"s with valid values to get a VarHandle to PRIVATE_FINAL_FIELD.
-         *  Note that the final field is in an inner class.
-         *  Check API: java.lang.invoke.MethodHandles.privateLookupIn(?, ?)
-         *             HINT: params are Target class, Lookup type
-         *  Check API: java.lang.invoke.MethodHandles.Lookup.findVarHandle(?, ?, ?)
-         *             HINT: params are Declaring class, Variable name, Variable type
-         *  Remember PRIVATE_FINAL_FIELD in of type int.class
-         */
-        VarHandle privateFinalField = MethodHandles
+            /*
+             * TODO:
+             *  Replace the "null"s with valid values to get a VarHandle to PRIVATE_FINAL_FIELD.
+             *  Note that the final field is in an inner class.
+             *  Check API: java.lang.invoke.MethodHandles.privateLookupIn(?, ?)
+             *             HINT: params are Target class, Lookup type
+             *  Check API: java.lang.invoke.MethodHandles.Lookup.findVarHandle(?, ?, ?)
+             *             HINT: params are Declaring class, Variable name, Variable type
+             *  Remember PRIVATE_FINAL_FIELD in of type int.class
+             */
+            VarHandle privateFinalField = MethodHandles
                 .privateLookupIn(null,
                         null)
                 .findVarHandle(null,
                         null, null);
 
-        /*
-         * NOT ALLOWED:
-         * Should throw the expected exception
-         * Can throw either:
-         *   java.lang.UnsupportedOperationException
-         *     or
-         *   java.lang.IllegalAccessException,
-         * depending on call order.
-         */
-        privateFinalField.set(instance, 20);
+            /*
+             * NOT ALLOWED:
+             * Should throw the expected exception
+             * Can throw either:
+             *   java.lang.UnsupportedOperationException
+             *     or
+             *   java.lang.IllegalAccessException,
+             * depending on call order.
+             */
+            privateFinalField.set(instance, 20);
+        });
 
     }
 
     @Test
+    @Tag("PASSING")
+    @Order(3)
     public void modifyConstantViaReflection() {
 
         final ClassWithPrivateFinalField instance = new ClassWithPrivateFinalField(10);
 
         try {
 
-            assertEquals("",
-                    10,
-                    ClassWithPrivateFinalField.getConstant());
+            assertEquals(10,
+                    ClassWithPrivateFinalField.getConstant(),
+                    "The constant should have a value of 10");
 
             Field publicStaticFinalConstant = ClassWithPrivateFinalField.class.getDeclaredField(
                     "CONSTANT");
@@ -127,9 +138,9 @@ public class VarHandlesForbiddenUnsafeFeaturesTest {
             // Will work, since the final modifier is removed.
             publicStaticFinalConstant.set(null, -20);
 
-            assertEquals("",
-                    -20,
-                    ClassWithPrivateFinalField.getConstant());
+            assertEquals(-20,
+                    ClassWithPrivateFinalField.getConstant(),
+                    "The constant should have a value of -20");
 
         } catch (NoSuchFieldException | IllegalAccessException e) {
 
@@ -139,6 +150,8 @@ public class VarHandlesForbiddenUnsafeFeaturesTest {
     }
 
     @Test
+    @Tag("TODO")
+    @Order(4)
     public void cannotModifyConstantUsingVarHandles() throws Throwable {
 
         fail(REFLECTION_FAILURE.getValue() + "Replace nulls below");
@@ -148,32 +161,33 @@ public class VarHandlesForbiddenUnsafeFeaturesTest {
          * A call to alter the value of a constant should ideally fail, per the JEP / spec.
          * Constants (static finals) cannot be modified using VarHandles.
          */
-        expectedException.expect(java.lang.UnsupportedOperationException.class);
+        assertThrows(java.lang.UnsupportedOperationException.class, () -> {
 
-        ClassWithPrivateFinalField instance = new ClassWithPrivateFinalField(10);
+            ClassWithPrivateFinalField instance = new ClassWithPrivateFinalField(10);
 
-        /*
-         * TODO:
-         *  Replace the "null"s with valid values to get a VarHandle to PRIVATE_FINAL_FIELD.
-         *  Note that the final field is in an inner class.
-         *  Check API: java.lang.invoke.MethodHandles.privateLookupIn(?, ?)
-         *             HINT: params are Target class, Lookup type
-         *  Check API: java.lang.invoke.MethodHandles.Lookup.findVarHandle(?, ?, ?)
-         *             HINT: params are Declaring class, Variable name, Variable type
-         *  Remember CONSTANT in of type Integer.class
-         */
-        VarHandle publicStaticFinalConstant = MethodHandles
+            /*
+             * TODO:
+             *  Replace the "null"s with valid values to get a VarHandle to PRIVATE_FINAL_FIELD.
+             *  Note that the final field is in an inner class.
+             *  Check API: java.lang.invoke.MethodHandles.privateLookupIn(?, ?)
+             *             HINT: params are Target class, Lookup type
+             *  Check API: java.lang.invoke.MethodHandles.Lookup.findVarHandle(?, ?, ?)
+             *             HINT: params are Declaring class, Variable name, Variable type
+             *  Remember CONSTANT in of type Integer.class
+             */
+            VarHandle publicStaticFinalConstant = MethodHandles
                 .privateLookupIn(null,
                         null)
                 .findStaticVarHandle(null,
                         null,
                         null);
 
-        /*
-         * NOT ALLOWED:
-         * Should throw the expected exception.
-         */
-        publicStaticFinalConstant.set(instance, -20);
+            /*
+             * NOT ALLOWED:
+             * Should throw the expected exception.
+             */
+            publicStaticFinalConstant.set(instance, -20);
+        });
 
     }
 

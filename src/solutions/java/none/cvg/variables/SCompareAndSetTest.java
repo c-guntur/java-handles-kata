@@ -6,15 +6,22 @@ import java.lang.reflect.Field;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
-import org.junit.Test;
+import none.cvg.HandlesKataDisplayNames;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import sun.misc.Unsafe;
 
 import static none.cvg.ErrorMessages.TEST_FAILURE;
 import static none.cvg.ErrorMessages.UNSAFE_FAILURE;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /*
  * DONE:
@@ -23,6 +30,9 @@ import static org.junit.Assert.fail;
  *  Each unsolved test provides a few hints that will allow the kata-taker to manually solve
  *  the exercise to achieve the same goal with MethodHandles.
  */
+@DisplayName("Compare and Set field values")
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@DisplayNameGeneration(HandlesKataDisplayNames.class)
 public class SCompareAndSetTest {
 
     private Integer currentValue = 2;
@@ -32,6 +42,8 @@ public class SCompareAndSetTest {
     private Integer newValue = 7;
 
     @Test
+    @Tag("PASSING")
+    @Order(1)
     public void compareAndSetUsingAtomicReference() {
 
         AtomicReference<Integer> atomicReference = new AtomicReference<>(privateVolatile);
@@ -39,27 +51,31 @@ public class SCompareAndSetTest {
 
         boolean exchanged = atomicReference.compareAndSet(privateVolatile, newValue);
 
-        assertTrue("The value should have been changed to 7, " +
-                        "hence exchanged should be true",
-                exchanged);
+        assertTrue(exchanged,
+                "The value should have been changed to 7, " +
+                        "hence exchanged should be true"
+                );
 
-        assertEquals("The value of the privateVolatile should now be 7",
-                newValue,
-                atomicReference.get());
+        assertEquals(newValue,
+                atomicReference.get(),
+                "The value of the privateVolatile should now be 7");
 
         exchanged = atomicReference.compareAndSet(privateVolatile, newValue);
 
-        assertFalse("The value should not have changed again, " +
-                        "hence exchanged should be false",
-                exchanged);
+        assertFalse(exchanged,
+                "The value should not have changed again, " +
+                        "hence exchanged should be false"
+                );
 
-        assertEquals("The value of the privateVolatile should still be 7",
-                newValue,
-                atomicReference.get());
+        assertEquals(newValue,
+                atomicReference.get(),
+                "The value of the privateVolatile should still be 7");
 
     }
 
     @Test
+    @Tag("PASSING")
+    @Order(2)
     public void compareAndSetUsingAtomicReferenceFieldUpdater() {
 
         final AtomicReferenceFieldUpdater<SCompareAndSetTest, Integer> valueUpdater =
@@ -69,26 +85,30 @@ public class SCompareAndSetTest {
 
         boolean exchanged = valueUpdater.compareAndSet(this, currentValue, newValue);
 
-        assertTrue("The value should have been changed to 7, " +
-                        "hence exchanged should be true",
-                exchanged);
+        assertTrue(exchanged,
+                "The value should have been changed to 7, " +
+                        "hence exchanged should be true"
+                );
 
-        assertEquals("The value of the privateVolatile should now be 7",
-                newValue,
-                valueUpdater.get(this));
+        assertEquals(newValue,
+                valueUpdater.get(this),
+                "The value of the privateVolatile should now be 7");
 
         exchanged = valueUpdater.compareAndSet(this, 2, 33);
 
-        assertFalse("The value should not have changed since the expected value " +
-                        "did not match, hence exchanged should be false",
-                exchanged);
+        assertFalse(exchanged,
+                "The value should not have changed since the expected value " +
+                        "did not match, hence exchanged should be false"
+                );
 
-        assertEquals("The value of the privateVolatile should still be 7",
-                newValue,
-                valueUpdater.get(this));
+        assertEquals(newValue,
+                valueUpdater.get(this),
+                "The value of the privateVolatile should still be 7");
     }
 
     @Test
+    @Tag("PASSING")
+    @Order(3)
     public void compareAndSetUsingUnsafe() {
 
         try {
@@ -105,23 +125,25 @@ public class SCompareAndSetTest {
             boolean exchanged = unsafe.compareAndSwapObject(this,
                     offset, currentValue, newValue);
 
-            assertTrue("The value should have been changed to 7, " +
-                            "hence exchanged should be true",
-                    exchanged);
+            assertTrue(exchanged,
+                    "The value should have been changed to 7, " +
+                            "hence exchanged should be true"
+                    );
 
-            assertEquals("The value of the privateVolatile should now be 7",
-                    newValue,
-                    unsafe.getObject(this, offset));
+            assertEquals(newValue,
+                    unsafe.getObject(this, offset),
+                    "The value of the privateVolatile should now be 7");
 
             exchanged = unsafe.compareAndSwapObject(this, offset, 2, 33);
 
-            assertFalse("The value should not have changed since the expected value " +
-                            "did not match, hence exchanged should be false",
-                    exchanged);
+            assertFalse(exchanged,
+                    "The value should not have changed since the expected value " +
+                            "did not match, hence exchanged should be false"
+                    );
 
-            assertEquals("The value of the privateVolatile should still be 7",
-                    newValue,
-                    unsafe.getObject(this, offset));
+            assertEquals(newValue,
+                    unsafe.getObject(this, offset),
+                    "The value of the privateVolatile should still be 7");
 
         } catch (NoSuchFieldException | IllegalAccessException e) {
 
@@ -132,6 +154,8 @@ public class SCompareAndSetTest {
     }
 
     @Test
+    @Tag("PASSING")
+    @Order(4)
     public void compareAndSetUsingVarHandles() {
 
         VarHandle varHandle = null;
@@ -161,13 +185,14 @@ public class SCompareAndSetTest {
              */
             boolean exchanged = varHandle.compareAndSet(this, currentValue, newValue);
 
-            assertTrue("The value should have been changed to 7, " +
-                            "hence exchanged should be true",
-                    exchanged);
+            assertTrue(exchanged,
+                    "The value should have been changed to 7, " +
+                            "hence exchanged should be true"
+                    );
 
-            assertEquals("The value of the privateVolatile should now be 7",
-                    newValue,
-                    varHandle.get(this));
+            assertEquals(newValue,
+                    varHandle.get(this),
+                    "The value of the privateVolatile should now be 7");
 
             /*
              * TODO:
@@ -180,13 +205,14 @@ public class SCompareAndSetTest {
              */
             exchanged = varHandle.compareAndSet(this, 2, 33);
 
-            assertFalse("The value should not have changed since the expected value " +
-                            "did not match, hence exchanged should be false",
-                    exchanged);
+            assertFalse(exchanged,
+                    "The value should not have changed since the expected value " +
+                            "did not match, hence exchanged should be false"
+                    );
 
-            assertEquals("The value of the privateVolatile should still be 7",
-                    newValue,
-                    varHandle.get(this));
+            assertEquals(newValue,
+                    varHandle.get(this),
+                    "The value of the privateVolatile should still be 7");
 
         } catch (NoSuchFieldException | IllegalAccessException e) {
 
